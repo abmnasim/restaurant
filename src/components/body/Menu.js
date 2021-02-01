@@ -2,16 +2,28 @@ import React, { Component } from 'react';
 import DISHES from '../../data/dishes';
 import MenuItem from './MenuItem';
 import DishDetails from './DishDetails';
+import { CardColumns, Modal, ModalBody, ModalFooter, Button } from "reactstrap";
 
 class Menu extends Component {
     state={
         dishes: DISHES,
-        selectedDish: null
+        selectedDish: null,
+        isModalOpen: false
     }
 
     //Function
     selectedItem = dish => {
-        this.setState({ selectedDish: dish })
+        this.setState({ 
+            selectedDish: dish,
+            isModalOpen: !this.state.isModalOpen
+        })
+        
+    }
+
+    isModalOpen = () => {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        })
     }
     
 
@@ -33,12 +45,19 @@ class Menu extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-6">
+                    <CardColumns>
                         {menu}
-                    </div>
-                    <div className="col-6">
-                        {dishDetails}
-                    </div>
+                    </CardColumns>
+                    <Modal isOpen={this.state.isModalOpen}>
+                        <ModalBody>
+                            {dishDetails}
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button onClick={this.isModalOpen}>
+                                close
+                            </Button>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             </div>
         )
