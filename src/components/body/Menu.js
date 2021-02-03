@@ -28,6 +28,7 @@ class Menu extends Component {
     
 
     render(){
+        document.title = "Menu";
         let dishDetails = null;
         if(this.state.selectedDish != null){
             dishDetails = <DishDetails dish={this.state.selectedDish}/>;
